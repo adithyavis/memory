@@ -4,7 +4,7 @@ import { useGameInfo } from 'providers/GameInfoProvider';
 
 import numbers from 'constants/numbers';
 
-function createCards(noOfCards) {
+function initializeCards(noOfCards) {
   let cards = {
     byIds: {},
     allIds: [],
@@ -27,7 +27,7 @@ function createCards(noOfCards) {
 const CardsContext = createContext();
 
 export function CardsProvider({ children }) {
-  const { noOfCards } = useGameInfo();
+  const { noOfCards, shouldInitializeCards } = useGameInfo();
 
   const [cards, setCards] = useState({
     byIds: {},
@@ -35,17 +35,23 @@ export function CardsProvider({ children }) {
   });
 
   const [previousClickedCardId, setPreviousClickedCardId] = useState(null);
+  const [noOfOpenCards, setNoOfOpenCards] = useState(0);
 
   useEffect(() => {
-    setCards(createCards(noOfCards));
-  }, [noOfCards]);
+    if (shouldInitializeCards) {
+      setCards(initializeCards(noOfCards));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldInitializeCards]);
 
   return (
     <CardsContext.Provider
       value={{
         cards,
-        setCards,
+        noOfOpenCards,
         previousClickedCardId,
+        setCards,
+        setNoOfOpenCards,
         setPreviousClickedCardId,
       }}
     >

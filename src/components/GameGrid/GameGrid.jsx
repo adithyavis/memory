@@ -8,10 +8,18 @@ import { useCards } from 'providers/CardsProvider';
 import useCardClickHandler from 'hooks/useCardClickHandler';
 
 function GameGrid() {
-  const { noOfCardColumns } = useGameInfo();
+  const { level, noOfCardColumns, showLevelNotification } = useGameInfo();
   const { cards } = useCards();
 
   const { handleCardClick } = useCardClickHandler();
+
+  if (showLevelNotification) {
+    return (
+      <div className="level-notification flex-grow-1 d-flex align-items-center py-4">
+        Level {level}
+      </div>
+    );
+  }
 
   return (
     <div className="flex-grow-1 d-flex align-items-center py-4">

@@ -14,7 +14,6 @@ const GameInfoContext = createContext();
 export function GameInfoProvider({ children }) {
   const [level, setLevel] = useState(1);
 
-  const [noOfCardRows, setNoOfCardRows] = useState(initNoOfCardColumns);
   const [noOfCardColumns, setNoOfCardColumns] = useState(initNoOfCardRows);
   const [noOfCards, setNoOfCards] = useState(
     initNoOfCardColumns * initNoOfCardRows
@@ -22,8 +21,10 @@ export function GameInfoProvider({ children }) {
   const [maxTime, setMaxTime] = useState(initMaxTime);
   const [maxMoves, setMaxMoves] = useState(initMaxMoves);
 
+  const [showLevelNotification, setShowLevelNotification] = useState(false);
+  const [shouldInitializeCards, setShouldInitializeCards] = useState(false);
+
   useEffect(() => {
-    setNoOfCardRows(levelsConfig.byLevels[level].noOfCardRows);
     setNoOfCardColumns(levelsConfig.byLevels[level].noOfCardColumns);
     setNoOfCards(
       levelsConfig.byLevels[level].noOfCardRows *
@@ -31,18 +32,36 @@ export function GameInfoProvider({ children }) {
     );
     setMaxTime(levelsConfig.byLevels[level].maxTime);
     setMaxMoves(levelsConfig.byLevels[level].maxMoves);
+    setShouldInitializeCards(true);
   }, [level]);
+
+  useEffect(() => {
+    if (showLevelNotification) {
+      const hideLevelNotification = () => {
+        setShowLevelNotification(false);
+      };
+      setTimeout(hideLevelNotification, 2000);
+    }
+  }, [showLevelNotification]);
+
+  useEffect(() => {
+    if (shouldInitializeCards) {
+      setShouldInitializeCards(false);
+    }
+  }, [shouldInitializeCards]);
 
   return (
     <GameInfoContext.Provider
       value={{
         level,
-        noOfCardRows,
         noOfCardColumns,
         noOfCards,
         maxTime,
         maxMoves,
+        showLevelNotification,
+        shouldInitializeCards,
         setLevel,
+        setShowLevelNotification,
       }}
     >
       {children}

@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { useCards } from 'providers/CardsProvider';
 
+import useTrackLevelProgress from 'hooks/useTrackLevelProgress';
+
 const useCardClickHandler = () => {
-  const { cards, previousClickedCardId, setCards, setPreviousClickedCardId } =
-    useCards();
+  const {
+    cards,
+    previousClickedCardId,
+    noOfOpenCards,
+    setCards,
+    setPreviousClickedCardId,
+    setNoOfOpenCards,
+  } = useCards();
+
+  useTrackLevelProgress();
 
   const [isCardClickBlocked, blockCardClick] = useState(false);
 
@@ -22,6 +32,8 @@ const useCardClickHandler = () => {
         setCards({ ...cards, byIds: newCardsByIds });
         blockCardClick(false);
       }, 500);
+    } else {
+      setNoOfOpenCards(noOfOpenCards + 2);
     }
   };
 
