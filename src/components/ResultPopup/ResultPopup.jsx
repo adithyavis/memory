@@ -15,11 +15,16 @@ function VictoryDefeatPopup() {
   } = useGameInfo();
 
   const handleClickStartGame = () => {
-    setShowStartPopup(false);
-    setShowVictoryPopup(false);
-    setShowDefeatPopup(false);
+    if (showStartPopup) {
+      setShowStartPopup(false);
+    } else if (showVictoryPopup) {
+      window.localStorage.setItem('level', null);
+      setShowVictoryPopup(false);
+    } else if (showDefeatPopup) {
+      window.localStorage.setItem('level', null);
+      setShowDefeatPopup(false);
+    }
     resetGame();
-    //resetStat()
   };
 
   if (showVictoryPopup || showDefeatPopup || showStartPopup) {

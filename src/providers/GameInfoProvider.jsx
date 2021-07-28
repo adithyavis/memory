@@ -16,7 +16,20 @@ const GameInfoContext = createContext();
 export function GameInfoProvider({ children }) {
   const { setRemainingTime } = useStats();
 
-  const [level, setLevel] = useState(1);
+  const setInitialLevel = () => {
+    const previouslySavedLevel = parseInt(window.localStorage.getItem('level'));
+    if (previouslySavedLevel) {
+      const found = levelsConfig.allLevels.find(
+        (level) => level === previouslySavedLevel
+      );
+      if (found) {
+        return found;
+      }
+    }
+    return 1;
+  };
+
+  const [level, setLevel] = useState(setInitialLevel);
 
   const [noOfCardColumns, setNoOfCardColumns] = useState(initNoOfCardRows);
   const [noOfCards, setNoOfCards] = useState(
@@ -60,13 +73,8 @@ export function GameInfoProvider({ children }) {
   }, [shouldInitializeCards]);
 
   const resetGame = () => {
-    setLevel(1);
-    setNoOfCardColumns(initNoOfCardColumns);
-    setNoOfCards(initNoOfCardRows * initNoOfCardColumns);
-    setMaxTime(initMaxTime * 1000);
-    setMaxMoves(initMaxMoves);
-    setShouldInitializeCards(true);
-    setRemainingTime(maxTime);
+    setLevel(setInitialLevel);
+    setShowLevelNotification(true);
   };
 
   return (

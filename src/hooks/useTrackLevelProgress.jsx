@@ -29,6 +29,7 @@ const useTrackLevelProgress = () => {
   useEffect(() => {
     const proceedToNextLevel = () => {
       resetStats();
+      window.localStorage.setItem('level', level + 1);
       setLevel(level + 1);
       setShowLevelNotification(true);
     };

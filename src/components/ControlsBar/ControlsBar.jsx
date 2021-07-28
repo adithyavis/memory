@@ -16,6 +16,7 @@ function Header(props) {
       <Button
         variant="primary"
         onClick={() => {
+          window.localStorage.setItem('level', null);
           resetStats();
           setShowStartPopup(true);
         }}
