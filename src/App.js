@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import VictoryPopup from 'components/VictoryPopup';
 import Header from 'components/Header';
 import ControlsBar from 'components/ControlsBar';
 import HistoryModal from 'components/HistoryModal';
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <div className="App d-flex flex-column align-items-center">
+      <VictoryPopup />
       <Header />
       <ControlsBar setShowHistoryModal={setShowHistoryModal} />
       <HistoryModal

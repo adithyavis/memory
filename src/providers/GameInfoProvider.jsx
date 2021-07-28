@@ -22,6 +22,7 @@ export function GameInfoProvider({ children }) {
   const [maxMoves, setMaxMoves] = useState(initMaxMoves);
 
   const [showLevelNotification, setShowLevelNotification] = useState(false);
+  const [showVictoryPopup, setShowVictoryPopup] = useState(false);
   const [shouldInitializeCards, setShouldInitializeCards] = useState(false);
 
   useEffect(() => {
@@ -59,9 +60,11 @@ export function GameInfoProvider({ children }) {
         maxTime,
         maxMoves,
         showLevelNotification,
+        showVictoryPopup,
         shouldInitializeCards,
         setLevel,
         setShowLevelNotification,
+        setShowVictoryPopup,
       }}
     >
       {children}
