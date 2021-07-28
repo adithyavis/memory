@@ -27,17 +27,15 @@ const CardsContext = createContext({
 });
 
 export function CardsProvider({ children }) {
-  const { noOfCardRows, noOfCardColumns } = useGameInfo();
+  const { noOfCards } = useGameInfo();
 
   const [cards, setCards] = useState(() => {
-    const noOfCards = noOfCardRows * noOfCardColumns;
     return createCards(noOfCards);
   });
 
   useEffect(() => {
-    const noOfCards = noOfCardRows * noOfCardColumns;
     setCards(createCards(noOfCards));
-  }, [noOfCardRows, noOfCardColumns]);
+  }, [noOfCards]);
 
   return (
     <CardsContext.Provider value={{ cards }}>{children}</CardsContext.Provider>
