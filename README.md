@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Memory card match game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Problem Statement
 
-## Available Scripts
+Build an implementation of a memory card game,
 
-In the project directory, you can run:
+Memory Game: It’s a simple game, Users are given a set of cards containing images/letters/Alphabet which are turned to the back (Hidden), when you click on an image, it reveals the card. If you click on two cards that are exactly the same, that is a win for you.
 
-### `yarn start`
+- Cards have to be shuffled on load or restart.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Game should know how to handle matched and unmatched cards.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Game has to start from level 1 which has 4 cards (2 \* 2)
 
-### `yarn test`
+- Users will move to the next level after completing the game within the time period & moves (which are specific to the given level)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Game should display the current number of moves a user has made.
 
-### `yarn build`
+- The game should show a star rating (from 1–10) that reflects the player’s performance based on the number of moves made.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- When a player starts a game, a displayed timer should also start and once the player wins the game, the timer stops.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- A restart button should allow the player to reset the game board, the timer, and the star rating.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- In the middle of the game, if the user closes the browser, the game has to retain the last finished level.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Game has to track the sequence of the card clicks.
