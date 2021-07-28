@@ -5,7 +5,7 @@ const StatsContext = createContext();
 export function StatsProvider({ children }) {
   const [remainingTime, setRemainingTime] = useState(null);
   const [moves, setMoves] = useState(0);
-  const [starRanking, setStarRanking] = useState(0);
+  const [starRanking, setStarRanking] = useState(10);
 
   useEffect(() => {
     if (remainingTime === null) {
@@ -22,8 +22,24 @@ export function StatsProvider({ children }) {
     };
   }, [remainingTime]);
 
+  const resetStats = () => {
+    setRemainingTime(null);
+    setMoves(0);
+    setStarRanking(10);
+  };
+
   return (
-    <StatsContext.Provider value={{ remainingTime, setRemainingTime }}>
+    <StatsContext.Provider
+      value={{
+        remainingTime,
+        moves,
+        starRanking,
+        resetStats,
+        setRemainingTime,
+        setMoves,
+        setStarRanking,
+      }}
+    >
       {children}
     </StatsContext.Provider>
   );

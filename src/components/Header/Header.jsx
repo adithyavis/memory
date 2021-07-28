@@ -4,8 +4,10 @@ import Timer from 'components/Timer';
 import StarRanking from 'components/StarRanking';
 
 import { useGameInfo } from 'providers/GameInfoProvider';
+import { useStats } from 'providers/StatsProvider';
 
 function Header() {
+  const { moves } = useStats();
   const { level } = useGameInfo();
 
   return (
@@ -14,7 +16,7 @@ function Header() {
       <div className="stat-container d-flex align-items-center">
         <Timer />
         <div>
-          <span>Steps: {1}</span>
+          <span>Moves: {moves}</span>
           <StarRanking />
         </div>
       </div>

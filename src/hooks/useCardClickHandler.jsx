@@ -1,10 +1,14 @@
 import { useState } from 'react';
 
+import { useStats } from 'providers/StatsProvider';
+import { useGameInfo } from 'providers/GameInfoProvider';
 import { useCards } from 'providers/CardsProvider';
 
 import useTrackLevelProgress from 'hooks/useTrackLevelProgress';
 
 const useCardClickHandler = () => {
+  const { moves, setMoves, setStarRanking } = useStats();
+  const { maxMoves } = useGameInfo();
   const {
     cards,
     previousClickedCardId,
@@ -17,6 +21,11 @@ const useCardClickHandler = () => {
   useTrackLevelProgress();
 
   const [isCardClickBlocked, blockCardClick] = useState(false);
+
+  const updateMovesAndStarRanking = () => {
+    setMoves(moves + 1);
+    setStarRanking(Math.floor(((maxMoves - moves - 1) * 10) / maxMoves));
+  };
 
   const checkIfTwoCardsMatch = (id1, id2) => {
     if (cards.byIds[id1].number !== cards.byIds[id2].number) {
@@ -48,6 +57,7 @@ const useCardClickHandler = () => {
     setCards({ ...cards, byIds: newCardsByIds });
 
     if (previousClickedCardId !== null) {
+      updateMovesAndStarRanking();
       checkIfTwoCardsMatch(id, previousClickedCardId);
       setPreviousClickedCardId(null);
       return;

@@ -10,18 +10,18 @@ const useTrackLevelProgress = () => {
   const { level, setLevel, setShowLevelNotification, setShowVictoryPopup } =
     useGameInfo();
   const { cards, noOfOpenCards, setNoOfOpenCards } = useCards();
-  const { setRemainingTime } = useStats();
+  const { resetStats } = useStats();
 
   useEffect(() => {
     const proceedToNextLevel = () => {
-      setRemainingTime(null);
+      resetStats();
       setLevel(level + 1);
       setShowLevelNotification(true);
     };
     if (cards.allIds.length !== 0 && noOfOpenCards === cards.allIds.length) {
       if (level === levelsConfig.allLevels.length) {
         setTimeout(() => {
-          setRemainingTime(null);
+          resetStats();
           setShowVictoryPopup(true);
         }, 500);
         return;
