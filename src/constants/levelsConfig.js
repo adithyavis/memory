@@ -14,7 +14,7 @@ const levelsConfig = {
     },
     3: {
       noOfCardRows: 3,
-      noOfCardColumns: 3,
+      noOfCardColumns: 4,
       maxTime: 80,
       maxMoves: 100,
     },
@@ -37,7 +37,7 @@ const levelsConfig = {
       maxMoves: 100,
     },
     7: {
-      noOfCardRows: 5,
+      noOfCardRows: 4,
       noOfCardColumns: 5,
       maxTime: 120,
       maxMoves: 100,
