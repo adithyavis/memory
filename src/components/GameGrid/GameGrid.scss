@@ -1,0 +1,23 @@
+.game-grid {
+  width: min(600px, 100vw);
+  display: grid;
+  grid-gap: 0.5rem;
+  > div {
+    position: relative;
+    place-items: center;
+    &::before {
+      // This is for aspect ratio
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+    .card-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      perspective: 100rem;
+    }
+  }
+}
