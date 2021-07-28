@@ -26,11 +26,17 @@ function GameGrid() {
           <div key={id}>
             <div
               className="card-container"
+              style={{
+                pointerEvents: cards.byIds[id].isHidden ? 'auto' : 'none',
+              }}
               onClick={() => {
                 handleCardClick(id);
               }}
             >
-              <Card isHidden={cards.byIds[id].isHidden} />
+              <Card
+                isHidden={cards.byIds[id].isHidden}
+                number={cards.byIds[id].number}
+              />
             </div>
           </div>
         ))}
