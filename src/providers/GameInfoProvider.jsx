@@ -9,14 +9,7 @@ const {
   maxMoves: initMaxMoves,
 } = levelsConfig.byLevels[levelsConfig.allLevels[0]];
 
-const GameInfoContext = createContext({
-  level: 1,
-  noOfCardColumns: initNoOfCardColumns,
-  noOfCardRows: initNoOfCardRows,
-  noOfCards: initNoOfCardColumns * initNoOfCardRows,
-  maxTime: initMaxTime,
-  maxMoves: initMaxMoves,
-});
+const GameInfoContext = createContext();
 
 export function GameInfoProvider({ children }) {
   const [level, setLevel] = useState(1);
