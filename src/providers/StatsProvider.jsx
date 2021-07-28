@@ -8,10 +8,7 @@ export function StatsProvider({ children }) {
   const [starRanking, setStarRanking] = useState(10);
 
   useEffect(() => {
-    if (remainingTime === null) {
-      return;
-    }
-    if (remainingTime === 0) {
+    if (!remainingTime) {
       return;
     }
     const timeoutFunc = setTimeout(() => {

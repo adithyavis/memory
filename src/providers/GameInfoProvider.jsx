@@ -26,13 +26,10 @@ export function GameInfoProvider({ children }) {
   const [maxMoves, setMaxMoves] = useState(initMaxMoves);
 
   const [showLevelNotification, setShowLevelNotification] = useState(false);
+  const [showStartPopup, setShowStartPopup] = useState(true);
   const [showVictoryPopup, setShowVictoryPopup] = useState(false);
+  const [showDefeatPopup, setShowDefeatPopup] = useState(false);
   const [shouldInitializeCards, setShouldInitializeCards] = useState(false);
-
-  useEffect(() => {
-    setRemainingTime(maxTime);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     setNoOfCardColumns(levelsConfig.byLevels[level].noOfCardColumns);
@@ -62,6 +59,16 @@ export function GameInfoProvider({ children }) {
     }
   }, [shouldInitializeCards]);
 
+  const resetGame = () => {
+    setLevel(1);
+    setNoOfCardColumns(initNoOfCardColumns);
+    setNoOfCards(initNoOfCardRows * initNoOfCardColumns);
+    setMaxTime(initMaxTime * 1000);
+    setMaxMoves(initMaxMoves);
+    setShouldInitializeCards(true);
+    setRemainingTime(maxTime);
+  };
+
   return (
     <GameInfoContext.Provider
       value={{
@@ -71,11 +78,16 @@ export function GameInfoProvider({ children }) {
         maxTime,
         maxMoves,
         showLevelNotification,
+        showStartPopup,
         showVictoryPopup,
+        showDefeatPopup,
         shouldInitializeCards,
         setLevel,
+        resetGame,
         setShowLevelNotification,
+        setShowStartPopup,
         setShowVictoryPopup,
+        setShowDefeatPopup,
       }}
     >
       {children}

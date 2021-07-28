@@ -7,10 +7,24 @@ import { useStats } from 'providers/StatsProvider';
 import levelsConfig from 'constants/levelsConfig';
 
 const useTrackLevelProgress = () => {
-  const { level, setLevel, setShowLevelNotification, setShowVictoryPopup } =
-    useGameInfo();
+  const {
+    level,
+    setLevel,
+    maxMoves,
+    setShowLevelNotification,
+    setShowVictoryPopup,
+    setShowDefeatPopup,
+  } = useGameInfo();
   const { cards, noOfOpenCards, setNoOfOpenCards } = useCards();
-  const { resetStats } = useStats();
+  const { moves, remainingTime, resetStats } = useStats();
+
+  useEffect(() => {
+    if (moves >= maxMoves || remainingTime === 0) {
+      setShowDefeatPopup(true);
+      resetStats();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moves, maxMoves, remainingTime]);
 
   useEffect(() => {
     const proceedToNextLevel = () => {
