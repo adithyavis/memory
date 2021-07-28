@@ -1,5 +1,7 @@
 import React, { useContext, createContext, useState, useEffect } from 'react';
 
+import { useStats } from 'providers/StatsProvider';
+
 import levelsConfig from 'constants/levelsConfig';
 
 const {
@@ -12,13 +14,15 @@ const {
 const GameInfoContext = createContext();
 
 export function GameInfoProvider({ children }) {
+  const { setRemainingTime } = useStats();
+
   const [level, setLevel] = useState(1);
 
   const [noOfCardColumns, setNoOfCardColumns] = useState(initNoOfCardRows);
   const [noOfCards, setNoOfCards] = useState(
     initNoOfCardColumns * initNoOfCardRows
   );
-  const [maxTime, setMaxTime] = useState(initMaxTime);
+  const [maxTime, setMaxTime] = useState(initMaxTime * 1000);
   const [maxMoves, setMaxMoves] = useState(initMaxMoves);
 
   const [showLevelNotification, setShowLevelNotification] = useState(false);
@@ -26,12 +30,17 @@ export function GameInfoProvider({ children }) {
   const [shouldInitializeCards, setShouldInitializeCards] = useState(false);
 
   useEffect(() => {
+    setRemainingTime(maxTime);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     setNoOfCardColumns(levelsConfig.byLevels[level].noOfCardColumns);
     setNoOfCards(
       levelsConfig.byLevels[level].noOfCardRows *
         levelsConfig.byLevels[level].noOfCardColumns
     );
-    setMaxTime(levelsConfig.byLevels[level].maxTime);
+    setMaxTime(levelsConfig.byLevels[level].maxTime * 1000);
     setMaxMoves(levelsConfig.byLevels[level].maxMoves);
     setShouldInitializeCards(true);
   }, [level]);
@@ -40,10 +49,12 @@ export function GameInfoProvider({ children }) {
     if (showLevelNotification) {
       const hideLevelNotification = () => {
         setShowLevelNotification(false);
+        setRemainingTime(maxTime);
       };
       setTimeout(hideLevelNotification, 2000);
     }
-  }, [showLevelNotification]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showLevelNotification, maxTime]);
 
   useEffect(() => {
     if (shouldInitializeCards) {

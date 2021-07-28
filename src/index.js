@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { GameInfoProvider } from 'providers/GameInfoProvider';
 import { CardsProvider } from 'providers/CardsProvider';
+import { StatsProvider } from 'providers/StatsProvider';
 
 import App from 'App';
 
@@ -11,11 +12,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GameInfoProvider>
-      <CardsProvider>
-        <App />
-      </CardsProvider>
-    </GameInfoProvider>
+    <StatsProvider>
+      <GameInfoProvider>
+        <CardsProvider>
+          <App />
+        </CardsProvider>
+      </GameInfoProvider>
+    </StatsProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
