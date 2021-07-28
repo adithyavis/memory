@@ -34,7 +34,7 @@ export function CardsProvider({ children }) {
     allIds: [],
   });
 
-  const [previousClickedCard, setPreviousClickedCard] = useState(null);
+  const [previousClickedCardId, setPreviousClickedCardId] = useState(null);
 
   useEffect(() => {
     setCards(createCards(noOfCards));
@@ -42,7 +42,12 @@ export function CardsProvider({ children }) {
 
   return (
     <CardsContext.Provider
-      value={{ cards, setCards, previousClickedCard, setPreviousClickedCard }}
+      value={{
+        cards,
+        setCards,
+        previousClickedCardId,
+        setPreviousClickedCardId,
+      }}
     >
       {children}
     </CardsContext.Provider>
