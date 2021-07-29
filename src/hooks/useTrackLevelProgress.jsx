@@ -15,44 +15,48 @@ const useTrackLevelProgress = () => {
     setShowVictoryPopup,
     setShowDefeatPopup,
   } = useGameInfo();
-  const { cards, noOfOpenCards, setNoOfOpenCards, cardsHistory } = useCards();
+  const { cards, noOfOpenCards, cardsHistory } = useCards();
   const { moves, remainingTime, resetStats } = useStats();
 
   useEffect(() => {
     if (moves >= maxMoves || remainingTime === 0) {
-      setShowDefeatPopup(true);
+      window.localStorage.setItem('cardsHistoryLog', null);
+      window.localStorage.setItem('level', null);
       resetStats();
+      setShowDefeatPopup(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moves, maxMoves, remainingTime]);
 
   useEffect(() => {
-    const proceedToNextLevel = () => {
-      resetStats();
-      window.localStorage.setItem(
-        'cardsHistoryLog',
-        JSON.stringify(cardsHistory)
-      );
-      window.localStorage.setItem('level', level + 1);
-      setLevel(level + 1);
-      setShowLevelNotification(true);
-    };
+    let timeoutFunc1;
+    let timeoutFunc2;
     if (cards.allIds.length !== 0 && noOfOpenCards === cards.allIds.length) {
+      const proceedToNextLevel = () => {
+        window.localStorage.setItem(
+          'cardsHistoryLog',
+          JSON.stringify(cardsHistory)
+        );
+        window.localStorage.setItem('level', level + 1);
+        resetStats();
+        setLevel((prevLevel) => prevLevel + 1);
+        setShowLevelNotification(true);
+      };
       if (level === levelsConfig.allLevels.length) {
-        setTimeout(() => {
+        timeoutFunc1 = setTimeout(() => {
+          window.localStorage.setItem('cardsHistoryLog', null);
+          window.localStorage.setItem('level', null);
           resetStats();
           setShowVictoryPopup(true);
         }, 500);
         return;
       }
-      setNoOfOpenCards(0);
-      setTimeout(proceedToNextLevel, 500);
+      timeoutFunc1 = setTimeout(proceedToNextLevel, 500);
     }
     return () => {
-      clearTimeout(proceedToNextLevel);
+      clearTimeout(timeoutFunc1);
+      clearTimeout(timeoutFunc2);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [noOfOpenCards, cards, level]);
+  }, [noOfOpenCards, cards]);
 
   return;
 };

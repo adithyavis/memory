@@ -56,15 +56,18 @@ export function GameInfoProvider({ children }) {
   }, [level]);
 
   useEffect(() => {
+    let timeoutFunc;
     if (showLevelNotification) {
       const hideLevelNotification = () => {
         setShowLevelNotification(false);
         setRemainingTime(maxTime);
       };
-      setTimeout(hideLevelNotification, 2000);
+      timeoutFunc = setTimeout(hideLevelNotification, 2000);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showLevelNotification, maxTime]);
+    return () => {
+      clearTimeout(timeoutFunc);
+    };
+  }, [showLevelNotification]);
 
   useEffect(() => {
     if (shouldInitializeCards) {
@@ -72,8 +75,20 @@ export function GameInfoProvider({ children }) {
     }
   }, [shouldInitializeCards]);
 
-  const resetGame = () => {
-    setLevel(setInitialLevel);
+  const resetLevel = () => {
+    const initialLevel = setInitialLevel();
+    if (level !== initialLevel) {
+      setLevel(initialLevel);
+    } else {
+      setNoOfCardColumns(levelsConfig.byLevels[level].noOfCardColumns);
+      setNoOfCards(
+        levelsConfig.byLevels[level].noOfCardRows *
+          levelsConfig.byLevels[level].noOfCardColumns
+      );
+      setMaxTime(levelsConfig.byLevels[level].maxTime * 1000);
+      setMaxMoves(levelsConfig.byLevels[level].maxMoves);
+      setShouldInitializeCards(true);
+    }
     setShowLevelNotification(true);
   };
 
@@ -91,7 +106,7 @@ export function GameInfoProvider({ children }) {
         showDefeatPopup,
         shouldInitializeCards,
         setLevel,
-        resetGame,
+        resetLevel,
         setShowLevelNotification,
         setShowStartPopup,
         setShowVictoryPopup,

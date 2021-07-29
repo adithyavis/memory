@@ -12,7 +12,7 @@ export function StatsProvider({ children }) {
       return;
     }
     const timeoutFunc = setTimeout(() => {
-      setRemainingTime(remainingTime - 1000);
+      setRemainingTime((prevRemainingTime) => prevRemainingTime - 1000);
     }, 1000);
     return () => {
       clearTimeout(timeoutFunc);

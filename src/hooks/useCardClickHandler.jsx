@@ -8,12 +8,11 @@ import useTrackLevelProgress from 'hooks/useTrackLevelProgress';
 import useLogEvents from 'hooks/useLogEvents';
 
 const useCardClickHandler = () => {
-  const { moves, setMoves, setStarRanking } = useStats();
+  const { setMoves, setStarRanking } = useStats();
   const { maxMoves } = useGameInfo();
   const {
     cards,
     previousClickedCardId,
-    noOfOpenCards,
     setCards,
     setPreviousClickedCardId,
     setNoOfOpenCards,
@@ -26,8 +25,10 @@ const useCardClickHandler = () => {
   const [isCardClickBlocked, blockCardClick] = useState(false);
 
   const updateMovesAndStarRanking = () => {
-    setMoves(moves + 1);
-    setStarRanking(Math.floor(((maxMoves - moves - 1) * 10) / maxMoves));
+    setMoves((prevMoves) => {
+      setStarRanking(Math.floor(((maxMoves - prevMoves - 1) * 10) / maxMoves));
+      return prevMoves + 1;
+    });
   };
 
   const checkIfTwoCardsMatch = (id1, id2) => {
@@ -42,12 +43,12 @@ const useCardClickHandler = () => {
       };
       setTimeout(() => {
         logCardsDontMatchEvent(id1, id2);
-        setCards({ ...cards, byIds: newCardsByIds });
+        setCards((prevCards) => ({ ...prevCards, byIds: newCardsByIds }));
         blockCardClick(false);
       }, 500);
     } else {
       logCardsMatchEvent(id1, id2);
-      setNoOfOpenCards(noOfOpenCards + 2);
+      setNoOfOpenCards((prevNoOfOpenCards) => prevNoOfOpenCards + 2);
     }
   };
 
@@ -59,7 +60,7 @@ const useCardClickHandler = () => {
     logCardClickEvent(id);
     const updatedCard = { ...cards.byIds[id], isHidden: false };
     const newCardsByIds = { ...cards.byIds, [id]: updatedCard };
-    setCards({ ...cards, byIds: newCardsByIds });
+    setCards((prevCards) => ({ ...prevCards, byIds: newCardsByIds }));
 
     if (previousClickedCardId !== null) {
       updateMovesAndStarRanking();

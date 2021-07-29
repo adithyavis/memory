@@ -8,7 +8,7 @@ import levelsConfig from 'constants/levelsConfig';
 
 function VictoryDefeatPopup() {
   const {
-    resetGame,
+    resetLevel,
     showStartPopup,
     showVictoryPopup,
     showDefeatPopup,
@@ -43,17 +43,13 @@ function VictoryDefeatPopup() {
         resetCardsHistory();
       }
     } else if (showVictoryPopup) {
-      window.localStorage.setItem('cardsHistoryLog', null);
-      window.localStorage.setItem('level', null);
       setShowVictoryPopup(false);
       resetCardsHistory();
     } else if (showDefeatPopup) {
-      window.localStorage.setItem('cardsHistoryLog', null);
-      window.localStorage.setItem('level', null);
       setShowDefeatPopup(false);
       resetCardsHistory();
     }
-    resetGame();
+    resetLevel();
   };
 
   if (showVictoryPopup || showDefeatPopup || showStartPopup) {

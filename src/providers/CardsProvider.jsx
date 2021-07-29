@@ -54,9 +54,9 @@ export function CardsProvider({ children }) {
 
   useEffect(() => {
     if (shouldInitializeCards) {
+      setNoOfOpenCards(0);
       setCards(initializeCards(noOfCards));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldInitializeCards]);
 
   return (
