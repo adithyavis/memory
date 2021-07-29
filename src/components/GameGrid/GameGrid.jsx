@@ -3,7 +3,7 @@ import React from 'react';
 import Card from 'components/Card';
 
 import { useGameInfo } from 'providers/GameInfoProvider';
-import { useCards } from 'providers/CardsProvider';
+import { useCardsInfo } from 'providers/CardsInfoProvider';
 
 import useCardClickHandler from 'hooks/useCardClickHandler';
 
@@ -16,7 +16,7 @@ function GameGrid() {
     showVictoryPopup,
     showDefeatPopup,
   } = useGameInfo();
-  const { cards } = useCards();
+  const { cards } = useCardsInfo();
 
   const { handleCardClick } = useCardClickHandler();
 

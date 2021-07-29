@@ -1,12 +1,12 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-import { useCards } from 'providers/CardsProvider';
+import { useCardsInfo } from 'providers/CardsInfoProvider';
 
 function HistoryModal(props) {
   const { showHistoryModal, setShowHistoryModal } = props;
 
-  const { cardsHistory } = useCards();
+  const { cardsHistory } = useCardsInfo();
 
   const handleClose = () => setShowHistoryModal(false);
 

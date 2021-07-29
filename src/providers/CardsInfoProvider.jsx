@@ -28,9 +28,9 @@ const cardsHistoryLog = JSON.parse(
   window.localStorage.getItem('cardsHistoryLog')
 );
 
-const CardsContext = createContext();
+const CardsInfoContext = createContext();
 
-export function CardsProvider({ children }) {
+export function CardsInfoProvider({ children }) {
   const { noOfCards, shouldInitializeCards } = useGameInfo();
 
   const [cards, setCards] = useState({
@@ -60,7 +60,7 @@ export function CardsProvider({ children }) {
   }, [shouldInitializeCards]);
 
   return (
-    <CardsContext.Provider
+    <CardsInfoContext.Provider
       value={{
         cards,
         noOfOpenCards,
@@ -74,8 +74,8 @@ export function CardsProvider({ children }) {
       }}
     >
       {children}
-    </CardsContext.Provider>
+    </CardsInfoContext.Provider>
   );
 }
 
-export const useCards = () => useContext(CardsContext);
+export const useCardsInfo = () => useContext(CardsInfoContext);

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useStats } from 'providers/StatsProvider';
 import { useGameInfo } from 'providers/GameInfoProvider';
-import { useCards } from 'providers/CardsProvider';
+import { useCardsInfo } from 'providers/CardsInfoProvider';
 
 import useTrackLevelProgress from 'hooks/useTrackLevelProgress';
 import useLogEvents from 'hooks/useLogEvents';
@@ -16,7 +16,7 @@ const useCardClickHandler = () => {
     setCards,
     setPreviousClickedCardId,
     setNoOfOpenCards,
-  } = useCards();
+  } = useCardsInfo();
 
   useTrackLevelProgress();
   const { logCardsMatchEvent, logCardsDontMatchEvent, logCardClickEvent } =

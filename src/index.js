@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { GameInfoProvider } from 'providers/GameInfoProvider';
-import { CardsProvider } from 'providers/CardsProvider';
+import { CardsInfoProvider } from 'providers/CardsInfoProvider';
 import { StatsProvider } from 'providers/StatsProvider';
 
 import App from 'App';
@@ -14,9 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <StatsProvider>
       <GameInfoProvider>
-        <CardsProvider>
+        <CardsInfoProvider>
           <App />
-        </CardsProvider>
+        </CardsInfoProvider>
       </GameInfoProvider>
     </StatsProvider>
   </React.StrictMode>,

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
 import { useGameInfo } from 'providers/GameInfoProvider';
-import { useCards } from 'providers/CardsProvider';
+import { useCardsInfo } from 'providers/CardsInfoProvider';
 
 import levelsConfig from 'constants/levelsConfig';
 
-function VictoryDefeatPopup() {
+function StartGameOverlay() {
   const {
     resetLevel,
     showStartPopup,
@@ -16,7 +16,7 @@ function VictoryDefeatPopup() {
     setShowVictoryPopup,
     setShowDefeatPopup,
   } = useGameInfo();
-  const { resetCardsHistory } = useCards();
+  const { resetCardsHistory } = useCardsInfo();
 
   const [showContinueLevel, setShowContinueLevel] = useState(null);
 
@@ -54,7 +54,7 @@ function VictoryDefeatPopup() {
 
   if (showVictoryPopup || showDefeatPopup || showStartPopup) {
     return (
-      <div className="result-popup d-flex flex-column align-items-center justify-content-center">
+      <div className="start-game-overlay d-flex flex-column align-items-center justify-content-center">
         {showVictoryPopup && <div>You have won!</div>}
         {showDefeatPopup && <div>You have lost!</div>}
         {showStartPopup && <div>Memory: Card Game</div>}
@@ -74,4 +74,4 @@ function VictoryDefeatPopup() {
   return <></>;
 }
 
-export default VictoryDefeatPopup;
+export default StartGameOverlay;

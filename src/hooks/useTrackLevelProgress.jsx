@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useGameInfo } from 'providers/GameInfoProvider';
-import { useCards } from 'providers/CardsProvider';
+import { useCardsInfo } from 'providers/CardsInfoProvider';
 import { useStats } from 'providers/StatsProvider';
 
 import levelsConfig from 'constants/levelsConfig';
@@ -15,7 +15,7 @@ const useTrackLevelProgress = () => {
     setShowVictoryPopup,
     setShowDefeatPopup,
   } = useGameInfo();
-  const { cards, noOfOpenCards, cardsHistory } = useCards();
+  const { cards, noOfOpenCards, cardsHistory } = useCardsInfo();
   const { moves, remainingTime, resetStats } = useStats();
 
   useEffect(() => {

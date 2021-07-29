@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import ResultPopup from 'components/ResultPopup';
+import StartGameOverlay from 'components/StartGameOverlay';
 import Header from 'components/Header';
 import ControlsBar from 'components/ControlsBar';
 import HistoryModal from 'components/HistoryModal';
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App d-flex flex-column align-items-center">
-      <ResultPopup />
+      <StartGameOverlay />
       <Header />
       <ControlsBar setShowHistoryModal={setShowHistoryModal} />
       <HistoryModal

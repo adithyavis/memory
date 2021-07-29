@@ -1,9 +1,9 @@
 import { useGameInfo } from 'providers/GameInfoProvider';
-import { useCards } from 'providers/CardsProvider';
+import { useCardsInfo } from 'providers/CardsInfoProvider';
 
 const useLogEvents = () => {
   const { level } = useGameInfo();
-  const { setCardsHistory } = useCards();
+  const { setCardsHistory } = useCardsInfo();
 
   const logCardsMatchEvent = (id1, id2) => {
     setCardsHistory((prevCardsHistory) =>
