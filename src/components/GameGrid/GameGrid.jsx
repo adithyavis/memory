@@ -8,10 +8,21 @@ import { useCards } from 'providers/CardsProvider';
 import useCardClickHandler from 'hooks/useCardClickHandler';
 
 function GameGrid() {
-  const { level, noOfCardColumns, showLevelNotification } = useGameInfo();
+  const {
+    level,
+    noOfCardColumns,
+    showLevelNotification,
+    showStartPopup,
+    showVictoryPopup,
+    showDefeatPopup,
+  } = useGameInfo();
   const { cards } = useCards();
 
   const { handleCardClick } = useCardClickHandler();
+
+  if (showStartPopup || showVictoryPopup || showDefeatPopup) {
+    return <></>;
+  }
 
   if (showLevelNotification) {
     return (
