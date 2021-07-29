@@ -44,6 +44,7 @@ export function GameInfoProvider({ children }) {
   const [showDefeatPopup, setShowDefeatPopup] = useState(false);
   const [shouldInitializeCards, setShouldInitializeCards] = useState(false);
 
+  // Reset level related info if level changes
   useEffect(() => {
     setNoOfCardColumns(levelsConfig.byLevels[level].noOfCardColumns);
     setNoOfCards(
@@ -55,6 +56,7 @@ export function GameInfoProvider({ children }) {
     setShouldInitializeCards(true);
   }, [level]);
 
+  // Start the timer, after the level notification slide has disappeared
   useEffect(() => {
     let timeoutFunc;
     if (showLevelNotification) {

@@ -7,6 +7,7 @@ export function StatsProvider({ children }) {
   const [moves, setMoves] = useState(0);
   const [starRanking, setStarRanking] = useState(10);
 
+  // Timer decrement logic
   useEffect(() => {
     if (!remainingTime) {
       return;

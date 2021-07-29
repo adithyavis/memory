@@ -31,6 +31,10 @@ const useCardClickHandler = () => {
     });
   };
 
+  /* 
+  Check if two cards match. If they do not, then flip them backwards.
+  Block clicking of other cards, until they have finished flipping backwards.
+  */
   const checkIfTwoCardsMatch = (id1, id2) => {
     if (cards.byIds[id1].number !== cards.byIds[id2].number) {
       blockCardClick(true);
@@ -52,6 +56,10 @@ const useCardClickHandler = () => {
     }
   };
 
+  /*
+  Flip the clicked card frontwards. If another card is already
+  front facing, check if they both match.
+  */
   const handleCardClick = (id) => {
     const isCurrentlyHidden = cards.byIds[id].isHidden;
     if (!isCurrentlyHidden || isCardClickBlocked) {

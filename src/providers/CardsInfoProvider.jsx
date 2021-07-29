@@ -4,6 +4,7 @@ import { useGameInfo } from 'providers/GameInfoProvider';
 
 import numbers from 'constants/numbers';
 
+// Allot numbers to cards and shuffle them
 function initializeCards(noOfCards) {
   let cards = {
     byIds: {},
@@ -41,6 +42,7 @@ export function CardsInfoProvider({ children }) {
   const [previousClickedCardId, setPreviousClickedCardId] = useState(null);
   const [noOfOpenCards, setNoOfOpenCards] = useState(0);
 
+  // If previously saved card history log exists, use that.
   const [cardsHistory, setCardsHistory] = useState(() => {
     if (Array.isArray(cardsHistoryLog)) {
       return cardsHistoryLog;

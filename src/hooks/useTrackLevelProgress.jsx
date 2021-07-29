@@ -18,6 +18,10 @@ const useTrackLevelProgress = () => {
   const { cards, noOfOpenCards, cardsHistory } = useCardsInfo();
   const { moves, remainingTime, resetStats } = useStats();
 
+  /* 
+  Check if moves/time has been exceeded for the level,
+  and if so, show defeat display.
+  */
   useEffect(() => {
     if (moves >= maxMoves || remainingTime === 0) {
       window.localStorage.setItem('cardsHistoryLog', null);
@@ -27,6 +31,10 @@ const useTrackLevelProgress = () => {
     }
   }, [moves, maxMoves, remainingTime]);
 
+  /* 
+  Check if all cards have matched in the current level,
+  and proceed to next level (or) show victory display.
+  */
   useEffect(() => {
     let timeoutFunc1;
     let timeoutFunc2;
