@@ -15,7 +15,7 @@ const useTrackLevelProgress = () => {
     setShowVictoryPopup,
     setShowDefeatPopup,
   } = useGameInfo();
-  const { cards, noOfOpenCards, setNoOfOpenCards } = useCards();
+  const { cards, noOfOpenCards, setNoOfOpenCards, cardsHistory } = useCards();
   const { moves, remainingTime, resetStats } = useStats();
 
   useEffect(() => {
@@ -29,6 +29,10 @@ const useTrackLevelProgress = () => {
   useEffect(() => {
     const proceedToNextLevel = () => {
       resetStats();
+      window.localStorage.setItem(
+        'cardsHistoryLog',
+        JSON.stringify(cardsHistory)
+      );
       window.localStorage.setItem('level', level + 1);
       setLevel(level + 1);
       setShowLevelNotification(true);

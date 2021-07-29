@@ -24,6 +24,10 @@ function initializeCards(noOfCards) {
   return cards;
 }
 
+const cardsHistoryLog = JSON.parse(
+  window.localStorage.getItem('cardsHistoryLog')
+);
+
 const CardsContext = createContext();
 
 export function CardsProvider({ children }) {
@@ -36,6 +40,17 @@ export function CardsProvider({ children }) {
 
   const [previousClickedCardId, setPreviousClickedCardId] = useState(null);
   const [noOfOpenCards, setNoOfOpenCards] = useState(0);
+
+  const [cardsHistory, setCardsHistory] = useState(() => {
+    if (Array.isArray(cardsHistoryLog)) {
+      return cardsHistoryLog;
+    }
+    return [];
+  });
+
+  const resetCardsHistory = () => {
+    setCardsHistory([]);
+  };
 
   useEffect(() => {
     if (shouldInitializeCards) {
@@ -50,9 +65,12 @@ export function CardsProvider({ children }) {
         cards,
         noOfOpenCards,
         previousClickedCardId,
+        cardsHistory,
         setCards,
         setNoOfOpenCards,
         setPreviousClickedCardId,
+        setCardsHistory,
+        resetCardsHistory,
       }}
     >
       {children}

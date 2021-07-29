@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
 import { useGameInfo } from 'providers/GameInfoProvider';
+import { useCards } from 'providers/CardsProvider';
 
 import levelsConfig from 'constants/levelsConfig';
 
@@ -15,6 +16,7 @@ function VictoryDefeatPopup() {
     setShowVictoryPopup,
     setShowDefeatPopup,
   } = useGameInfo();
+  const { resetCardsHistory } = useCards();
 
   const [showContinueLevel, setShowContinueLevel] = useState(null);
 
@@ -37,12 +39,19 @@ function VictoryDefeatPopup() {
     if (showStartPopup) {
       setShowStartPopup(false);
       setShowContinueLevel(null);
+      if (!showContinueLevel) {
+        resetCardsHistory();
+      }
     } else if (showVictoryPopup) {
+      window.localStorage.setItem('cardsHistoryLog', null);
       window.localStorage.setItem('level', null);
       setShowVictoryPopup(false);
+      resetCardsHistory();
     } else if (showDefeatPopup) {
+      window.localStorage.setItem('cardsHistoryLog', null);
       window.localStorage.setItem('level', null);
       setShowDefeatPopup(false);
+      resetCardsHistory();
     }
     resetGame();
   };
